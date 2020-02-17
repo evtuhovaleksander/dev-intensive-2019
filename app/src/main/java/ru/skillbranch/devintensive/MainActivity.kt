@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        println(isKeyboardOpen)
         if(v?.id == R.id.iv_send) {
             checkAnswer()
         }

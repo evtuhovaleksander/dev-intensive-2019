@@ -13,16 +13,29 @@ fun Activity.hideKeyboard() {
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-val Activity.isKeyboardOpen: Boolean
-    get() {
+//val Activity.isKeyboardOpen: Boolean
+//    get() {
+//
+//        val rootView = findViewById<View>(android.R.id.content)
+//        val rect = Rect().apply { rootView.getWindowVisibleDisplayFrame(this) }
+//        val screenHeight = rootView.height
+//        val keypadHeight = screenHeight - rect.bottom
+//        val isShown = keypadHeight > screenHeight * 0.15
+//        return isShown
+//    }
+//
+//val Activity.isKeyboardClosed: Boolean
+//    get() { return !isKeyboardOpen }
 
-        val rootView = findViewById<View>(android.R.id.content)
-        val rect = Rect().apply { rootView.getWindowVisibleDisplayFrame(this) }
-        val screenHeight = rootView.height
-        val keypadHeight = screenHeight - rect.bottom
-        val isShown = keypadHeight > screenHeight * 0.15
-        return isShown
-    }
+fun Activity.isKeyboardOpen(): Boolean {
+    val rootView = findViewById<View>(android.R.id.content)
+    val rect = Rect().apply { rootView.getWindowVisibleDisplayFrame(this) }
+    val screenHeight = rootView.height
+    val keypadHeight = screenHeight - rect.bottom
+    val isShown = keypadHeight > screenHeight * 0.15
+    return isShown
+}
 
-val Activity.isKeyboardClosed: Boolean
-    get() { return !isKeyboardOpen }
+fun Activity.isKeyboardClosed(): Boolean {
+    return !isKeyboardOpen()
+}

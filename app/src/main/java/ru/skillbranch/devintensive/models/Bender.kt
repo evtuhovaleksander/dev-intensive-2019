@@ -12,7 +12,8 @@ class Bender (var status: Status = Status.NORMAL, var question: Question = Quest
     }
 
     private fun checkAnswer(answer: String): String {
-        return if (question.answer.contains(answer)) {
+
+        return if (question.validate(answer) && question.answer.contains(answer)) {
             question = question.nextQuestion()
             "Отлично - ты справился"
         }
@@ -49,7 +50,10 @@ class Bender (var status: Status = Status.NORMAL, var question: Question = Quest
     enum class Question(val question: String, val answer: List<String>){
         NAME("Как меня зовут?", listOf("бендер", "bender")) {
             override fun nextQuestion(): Question = PROFESSION
-            override fun validate(answer: String): Boolean = answer.trim().firstOrNull()?.isUpperCase() ?: false
+            override fun validate(answer: String): Boolean {
+
+                return answer.trim().firstOrNull()?.isUpperCase() ?: false
+            }
         },
         PROFESSION("Назови мою профессию?", listOf("сгибальщик", "bender")){
             override fun nextQuestion(): Question = MATERIAL
@@ -61,7 +65,10 @@ class Bender (var status: Status = Status.NORMAL, var question: Question = Quest
         },
         BDAY("Когда меня создали?", listOf("2993")){
             override fun nextQuestion(): Question = SERIAL
-            override fun validate(answer: String): Boolean = answer.trim().contains(Regex("^[0-9]*$"))
+            override fun validate(answer: String): Boolean {
+
+                return  answer.trim().contains(Regex("^[0-9]*$"))
+            }
         },
         SERIAL("Мой серийный номер?", listOf("2716057")){
             override fun nextQuestion(): Question = IDLE

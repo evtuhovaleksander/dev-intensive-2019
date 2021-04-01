@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun checkAnswer() {
-        val (phase,color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
+        val text = messageEt.text.toString().toLowerCase()
+        val (phase,color) = benderObj.listenAnswer(text)
         messageEt.setText("")
         val (r,g,b) = color
         benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
